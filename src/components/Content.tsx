@@ -3,7 +3,6 @@ import { SectionHeader } from "./SectionHeader";
 
 export const Model = () => {
   const models = [
-    { title: "قرآن ترجمہ اور تفسیر", sub: "SCALABLE FAITH", icon: "📖", desc: "ہر کلاس میں قرآن مجید کا آسان ترجمہ اور تفسیر سکھائی جائے گی۔" },
     { title: "قوی انگریزی بنیاد", sub: "GLOBAL SYSTEMS", icon: "🗣️", desc: "Grade 1 سے مرحلہ وار انگریزی — گرامر، بول چال، لکھائی۔" },
     { title: "کمپیوٹر، کوڈنگ اور AI", sub: "DIGITAL FRONTIER", icon: "💻", desc: "مڈل سے کمپیوٹر، پھر کوڈنگ اور AI کا تعارف۔" },
     { title: "عملی پیشہ ورانہ ہنر", sub: "PHYSICAL LOGIC", icon: "🔧", desc: "الیکٹریکل ورک، بڑھئی گیری، سلائی — عملی مہارتیں" },

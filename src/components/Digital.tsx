@@ -55,7 +55,7 @@ export const LMS = () => {
                     <div className="bg-brand-medium p-12 relative overflow-hidden flex items-center justify-center">
                         <div className="w-full space-y-4 urdu" style={{ direction: 'rtl' }}>
                             {[
-                                { t: "قرآن سبق #04", s: "DATA_READY", c: "text-accent" },
+                                { t: "ریاضی سبق #12", s: "DATA_READY", c: "text-accent" },
                                 { t: "انگریزی لیکچر", s: "LIVE_NOW", c: "text-red-500 font-bold" },
                                 { t: "ماہانہ رزلٹ", s: "PENDING", c: "text-muted" },
                             ].map((row, i) => (

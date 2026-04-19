@@ -29,7 +29,7 @@ export const About = () => {
             </p>
             <ul className="space-y-6 urdu pt-8 border-t border-border/30" style={{ direction: 'rtl' }}>
               {[
-                "ہر بچہ قرآن سمجھ کر پڑھے",
+                "مضبوط ریاضیاتی بنیاد",
                 "Grade 10 تک روانی سے انگریزی بولے",
                 "AI اور ٹیکنالوجی سے واقف ہو"
               ].map((item, i) => (
@@ -53,7 +53,7 @@ export const About = () => {
               پاکستان کے ہر گاؤں کے بچے کو عالمی معیار کی تعلیم ملنی چاہیے۔ کلاخیل کا بچہ بھی وہی سوچے اور سیکھے جو بین الاقوامی سطح پر رائج ہے۔
             </p>
             <div className="grid grid-cols-2 gap-px bg-border border border-border" style={{ direction: 'rtl' }}>
-              {["گلوبل معیار", "دینی تربیت", "جدید ٹیکنالوجی", "کردار سازی"].map((item, i) => (
+              {["گلوبل معیار", "ذہنی نشوونما", "جدید ٹیکنالوجی", "کردار سازی"].map((item, i) => (
                 <div key={i} className="bg-bg p-6 urdu text-lg text-ink flex items-center gap-4 group/item">
                    <div className="w-1.5 h-1.5 bg-accent rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity" />
                    <span>{item}</span>

@@ -37,8 +37,8 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="urdu text-huge font-black text-ink mb-8 lg:mb-12"
         >
-          تعلیم جو <span className="text-accent italic font-serif tracking-tighter">دنیا اور آخرت</span><br />
-          دونوں سنوار دے
+          تعلیم جو <span className="text-accent italic font-serif tracking-tighter">روشن مستقبل</span><br />
+          کی ضمانت دے
         </motion.h1>
 
         <motion.p
@@ -47,7 +47,7 @@ export const Hero = () => {
           transition={{ delay: 0.4 }}
           className="urdu text-lg sm:text-xl text-muted leading-[2.2] sm:leading-[2.5] max-w-2xl ml-auto border-r-2 border-accent/30 pr-6 sm:pr-8"
         >
-          وہ اسکول جہاں آپ کا بچہ قرآن سمجھے، انگریزی بولے، کمپیوٹر اور AI سیکھے، ہاتھ کا ہنر پائے — اور سب سے بڑھ کر سچا مسلمان اور ذمہ دار انسان بنے۔
+          وہ اسکول جہاں آپ کا بچہ انگریزی بولے، کمپیوٹر اور AI سیکھے، ہاتھ کا ہنر پائے — اور سب سے بڑھ کر ایک کامیاب اور ذمہ دار انسان بنے۔
         </motion.p>
 
         <div className="flex gap-4 mt-10 lg:mt-12 justify-end">

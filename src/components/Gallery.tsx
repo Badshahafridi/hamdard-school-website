@@ -7,7 +7,7 @@ export const Gallery = () => {
         { icon: "🏫", label: "اسکول بلڈنگ", style: "bg-linear-to-br from-brand-vibrant/20 to-brand-pale", span: true },
         { icon: "📚", label: "کلاس روم", style: "bg-sky-100" },
         { icon: "💻", label: "کمپیوٹر لیب", style: "bg-gold-pale" },
-        { icon: "📖", label: "قرآن کلاس", style: "bg-red-50" },
+        { icon: "🔬", label: "سائنس لیب", style: "bg-red-50" },
         { icon: "🔧", label: "ہنر کلاس", style: "bg-purple-50" },
         { icon: "🏆", label: "تقریب", style: "bg-emerald-50" },
         { icon: "⚽", label: "میدان", style: "bg-yellow-50" },
