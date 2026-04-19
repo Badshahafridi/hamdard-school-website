@@ -5,6 +5,7 @@ import { Model, Fees } from "./components/Content";
 import { WhyUs, Admissions, Footer } from "./components/ExtraSections";
 import { Gallery } from "./components/Gallery";
 import { HomeSchooling, LMS } from "./components/Digital";
+import { AcademicCalendar } from "./components/Calendar";
 import { MessageCircle } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stats />
         <About />
         <Model />
+        <AcademicCalendar />
         <Fees />
         <WhyUs />
         <Gallery />

@@ -31,54 +31,96 @@ export const Rail = () => {
 };
 
 export const Header = () => {
+  const [showBanner, setShowBanner] = useState(true);
+
   return (
-    <motion.header 
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
-      className="fixed top-0 left-0 lg:left-20 right-0 h-20 border-b border-border bg-bg/80 backdrop-blur-md flex items-center justify-between px-8 z-[900]"
-      aria-label="Main Header"
-    >
-      <div className="flex items-center gap-10">
-        <a href="#home" className="flex items-center gap-4 group">
-          <img 
-            src="/logo.png" 
-            alt="Hamdard Model High School Logo"
-            className="h-10 w-10 object-contain grayscale invert transition-all duration-500 group-hover:grayscale-0 group-hover:invert-0"
-            referrerPolicy="no-referrer"
-          />
+    <div className="fixed top-0 left-0 lg:left-20 right-0 z-[900]">
+      <AnimatePresence>
+        {showBanner && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="bg-accent overflow-hidden"
+          >
+            <div className="max-w-[1240px] mx-auto px-8 py-2 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4 overflow-hidden">
+                <span className="flex-shrink-0 bg-bg text-accent text-[8px] font-black px-1.5 py-0.5 uppercase tracking-tighter rounded-sm">Update</span>
+                <p className="text-bg text-[10px] font-bold uppercase tracking-[0.1em] truncate">
+                  Admissions are now open for the 2026-27 session. Limited seats available for primary classes.
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowBanner(false)}
+                className="text-bg hover:opacity-70 transition-opacity p-1"
+                aria-label="Dismiss banner"
+              >
+                <X size={14} strokeWidth={3} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.header 
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
+        className="h-20 border-b border-border bg-bg/80 backdrop-blur-md flex items-center justify-between px-8"
+        aria-label="Main Header"
+      >
+        <div className="flex items-center gap-10">
+        <a href="#home" className="flex items-center gap-6 group">
+          <div className="relative">
+            {/* Editorial Seal Border */}
+            <div className="absolute -inset-1.5 border border-accent/20 rounded-full scale-110 group-hover:scale-125 transition-transform duration-700 ease-out" />
+            <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center overflow-hidden bg-brand-pale">
+              <img 
+                src="/logo.png" 
+                alt="Hamdard School Logo"
+                className="w-full h-full object-contain grayscale invert opacity-70 transition-all duration-700 group-hover:grayscale-0 group-hover:invert-0 group-hover:opacity-100"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </div>
           <div className="hidden xl:block">
-            <div className="text-[10px] font-black tracking-[0.2em] text-ink uppercase leading-none mb-1">Hamdard Model</div>
-            <div className="text-[8px] font-bold tracking-[0.1em] text-muted uppercase leading-none">High School Peshawar</div>
+            <div className="flex items-center gap-3 mb-1">
+              <div className="text-[10px] font-black tracking-[0.3em] text-ink uppercase leading-none">Hamdard Model</div>
+              <div className="w-1 h-1 bg-accent rounded-full" />
+              <div className="text-[10px] font-black tracking-[0.3em] text-accent uppercase leading-none">Peshawar</div>
+            </div>
+            <div className="text-[8px] font-bold tracking-[0.1em] text-muted uppercase leading-none">Institute of Excellence / Est. 2026</div>
           </div>
         </a>
-        <nav className="flex gap-8 border-l border-border pl-10 h-10 items-center">
-          {["Home", "About", "Academics", "Digital"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="uppercase text-[11px] tracking-[0.15em] font-extrabold text-muted hover:text-accent transition-colors focus:text-accent outline-none"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
-      </div>
-      <div className="flex items-center gap-8">
-        <a 
-          href="#admissions" 
-          className="text-accent uppercase text-[11px] tracking-[0.15em] font-black border-b-2 border-accent pb-1 hover:opacity-80 transition-opacity"
-        >
-          Admissions
-        </a>
-        <button 
-          className="text-ink uppercase text-[11px] tracking-[0.15em] font-extrabold cursor-pointer hover:text-accent transition-colors"
-          aria-label="Toggle Menu"
-        >
-          Menu
-        </button>
-      </div>
-    </motion.header>
+          <nav className="flex gap-8 border-l border-border pl-10 h-10 items-center">
+            {["Home", "About", "Academics", "Digital"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="uppercase text-[11px] tracking-[0.15em] font-extrabold text-muted hover:text-accent transition-colors focus:text-accent outline-none"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="flex items-center gap-8">
+          <a 
+            href="#admissions" 
+            className="text-accent uppercase text-[11px] tracking-[0.15em] font-black border-b-2 border-accent pb-1 hover:opacity-80 transition-opacity"
+          >
+            Admissions
+          </a>
+          <button 
+            className="text-ink uppercase text-[11px] tracking-[0.15em] font-extrabold cursor-pointer hover:text-accent transition-colors"
+            aria-label="Toggle Menu"
+          >
+            Menu
+          </button>
+        </div>
+      </motion.header>
+    </div>
   );
 };
 

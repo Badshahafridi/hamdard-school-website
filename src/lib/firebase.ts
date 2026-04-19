@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, getDocFromServer, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, doc, getDocFromServer, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
@@ -52,4 +52,29 @@ export async function submitAdmission(data: AdmissionData) {
       }
     }));
   }
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  date: string;
+  endDate?: string;
+  type: 'holiday' | 'exam' | 'event' | 'deadline';
+  description?: string;
+}
+
+export function subscribeToCalendar(callback: (events: CalendarEvent[]) => void) {
+  return onSnapshot(
+    query(collection(db, 'academicCalendar'), orderBy('date', 'asc')),
+    (snapshot) => {
+      const events = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as CalendarEvent[];
+      callback(events);
+    },
+    (error) => {
+      console.error("Calendar Sync Error:", error);
+    }
+  );
 }

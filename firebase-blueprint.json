@@ -34,12 +34,29 @@
         }
       },
       "required": ["childName", "classSelection", "contactNumber", "status", "createdAt", "updatedAt"]
+    },
+    "calendarEvent": {
+      "title": "Calendar Event",
+      "description": "A specific date/event on the school academic calendar.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The event name (e.g., Summer Break, Annual Exams)." },
+        "date": { "type": "string", "format": "date", "description": "The specific date or start date of the event." },
+        "endDate": { "type": "string", "format": "date", "description": "Optional end date for multi-day events." },
+        "type": { "type": "string", "enum": ["holiday", "exam", "event", "deadline"], "description": "Category of the event." },
+        "description": { "type": "string", "description": "Detailed notes or information about the event." }
+      },
+      "required": ["title", "date", "type"]
     }
   },
   "firestore": {
     "/admissions/{admissionId}": {
       "schema": "admission",
       "description": "Collection of all student admission requests."
+    },
+    "/academicCalendar/{eventId}": {
+      "schema": "calendarEvent",
+      "description": "Records representing holidays, exams, and school events."
     }
   }
 }
