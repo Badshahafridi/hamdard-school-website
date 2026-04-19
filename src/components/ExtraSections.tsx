@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { SectionHeader } from "./SectionHeader";
+
+import { submitAdmission } from "../lib/firebase";
 
 export const WhyUs = () => {
     const reasons = [
@@ -32,6 +34,29 @@ export const WhyUs = () => {
 
 export const Admissions = () => {
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [formData, setFormData] = useState({
+        childName: "",
+        classSelection: "Nursery",
+        contactNumber: ""
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+        
+        try {
+            await submitAdmission(formData);
+            setSubmitted(true);
+        } catch (err) {
+            setError("سسٹم میں دشواری پیش آئی ہے۔ براہ کرم دوبارہ کوشش کریں یا واٹس ایپ پر رابطہ کریں۔");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
     
     return (
         <section id="admissions" className="py-24 bg-bg border-b border-editorial">
@@ -57,27 +82,77 @@ export const Admissions = () => {
                         </div>
                     </div>
 
-                    <div className="bg-bg p-8 lg:p-20 border-l border-border">
+                    <div className="bg-bg p-8 lg:p-20 border-l border-border relative">
+                        {loading && (
+                            <div className="absolute inset-0 bg-bg/80 backdrop-blur-sm z-50 flex items-center justify-center">
+                                <span className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                            </div>
+                        )}
+                        
                         {!submitted ? (
-                            <div className="urdu" style={{ direction: 'rtl' }}>
+                            <form onSubmit={handleSubmit} className="urdu" style={{ direction: 'rtl' }}>
                                 <div className="space-y-6">
-                                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CHILD NAME</label><input className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none" /></div>
-                                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CLASS SELECTION</label>
-                                        <select className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none appearance-none font-sans">
-                                            <option>Nursery</option><option>Grade 1</option><option>Grade 10</option>
+                                    {error && <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-4 text-sm mb-4">{error}</div>}
+                                    
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CHILD NAME</label>
+                                        <input 
+                                            required
+                                            value={formData.childName}
+                                            onChange={(e) => setFormData({...formData, childName: e.target.value})}
+                                            className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none" 
+                                            placeholder="بچے کا مکمل نام"
+                                        />
+                                    </div>
+                                    
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CLASS SELECTION</label>
+                                        <select 
+                                            value={formData.classSelection}
+                                            onChange={(e) => setFormData({...formData, classSelection: e.target.value})}
+                                            className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none appearance-none font-sans"
+                                        >
+                                            <option>Nursery</option>
+                                            <option>Grade 1</option>
+                                            <option>Grade 2</option>
+                                            <option>Grade 3</option>
+                                            <option>Grade 4</option>
+                                            <option>Grade 5</option>
+                                            <option>Grade 6</option>
+                                            <option>Grade 7</option>
+                                            <option>Grade 8</option>
+                                            <option>Grade 9</option>
+                                            <option>Grade 10</option>
                                         </select>
                                     </div>
-                                    <div className="space-y-1.5"><label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CONTACT NUMBER</label><input className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none font-sans" /></div>
-                                    <button onClick={() => setSubmitted(true)} className="w-full bg-accent text-bg font-black uppercase text-[11px] tracking-[0.3em] py-6 mt-4">
-                                       Initiate Enrollment
+                                    
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] uppercase tracking-[0.2em] font-black text-muted">CONTACT NUMBER</label>
+                                        <input 
+                                            required
+                                            type="tel"
+                                            value={formData.contactNumber}
+                                            onChange={(e) => setFormData({...formData, contactNumber: e.target.value})}
+                                            className="w-full bg-brand-medium border border-border p-4 text-ink focus:border-accent outline-none font-sans" 
+                                            placeholder="03XX XXXXXXX"
+                                        />
+                                    </div>
+                                    
+                                    <button 
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full bg-accent text-bg font-black uppercase text-[11px] tracking-[0.3em] py-6 mt-4 hover:shadow-[0_0_30px_rgba(224,255,0,0.2)] transition-shadow disabled:opacity-50"
+                                    >
+                                       Initiate Enrollment Protocol
                                     </button>
                                 </div>
-                            </div>
+                            </form>
                         ) : (
-                            <div className="text-center py-10 urdu">
-                                <div className="text-5xl mb-6">✓</div>
-                                <h3 className="text-xl text-ink font-bold mb-4">فارم وصول ہو گیا</h3>
-                                <p className="text-muted text-sm">ہم جلد رابطہ کریں گے۔</p>
+                            <div className="text-center py-20 urdu">
+                                <div className="text-6xl mb-8">✓</div>
+                                <h3 className="text-2xl text-ink font-bold mb-4">فارم وصول ہو گیا</h3>
+                                <p className="text-muted text-lg max-w-[280px] mx-auto">ہماری ٹیم اگلے 24 گھنٹوں میں آپ سے رابطہ کرے گی۔</p>
+                                <button onClick={() => setSubmitted(false)} className="mt-12 text-[10px] uppercase tracking-widest text-accent border-b border-accent pb-1">Submit Another Application</button>
                             </div>
                         )}
                     </div>
@@ -92,7 +167,12 @@ export const Footer = () => {
         <footer className="bg-bg py-20 border-t border-border">
             <div className="max-w-[1240px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-10">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 border border-border flex items-center justify-center text-accent font-black">H</div>
+                  <img 
+                    src="/logo.png" 
+                    alt="Logo"
+                    className="w-10 h-10 object-contain grayscale invert opacity-60 hover:opacity-100 transition-opacity"
+                    referrerPolicy="no-referrer"
+                  />
                   <div className="text-muted tracking-[0.1em] text-[10px] font-bold uppercase">
                     Hamdard School / Village Kalakhel
                   </div>

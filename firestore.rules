@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Catch-all safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- PRIMITIVES & HELPERS ---
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      // Admin check: verify if the user's UID exists in the 'admins' collection
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // --- ENLIGHTENED VALIDATION BLUEPRINTS ---
+
+    function isValidAdmission(data) {
+      return data.keys().hasAll(['childName', 'classSelection', 'contactNumber', 'status', 'createdAt', 'updatedAt'])
+        && data.keys().size() == 6
+        && data.childName is string && data.childName.size() > 0 && data.childName.size() <= 200
+        && data.classSelection is string && data.classSelection.size() > 0 && data.classSelection.size() <= 100
+        && data.contactNumber is string && data.contactNumber.size() >= 10 && data.contactNumber.size() <= 20
+        && data.status in ['pending', 'reviewed', 'accepted', 'rejected']
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // --- COLLECTION RULES ---
+
+    match /admissions/{admissionId} {
+      // 3. Path variable hardening
+      allow get: if isAdmin() && isValidId(admissionId);
+      allow list: if isAdmin();
+
+      allow create: if (
+        // Public can create new admissions
+        isValidAdmission(incoming())
+        && incoming().status == 'pending'
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time
+        && isValidId(admissionId)
+      );
+
+      allow update: if (
+        isAdmin()
+        && isValidAdmission(incoming())
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && (
+          // Admin action: Change status
+          incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+        )
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    // Allow admins to manage the admin list (Self-bootstrapping or manual console entry required initially)
+    match /admins/{userId} {
+      allow read, write: if false; // Only manageable through Firebase Console for maximum security
+    }
+  }
+}

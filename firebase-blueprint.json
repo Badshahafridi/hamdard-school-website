@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "admission": {
+      "title": "Admission Record",
+      "description": "Information provided by parents for student enrollment.",
+      "type": "object",
+      "properties": {
+        "childName": {
+          "type": "string",
+          "description": "Full name of the student."
+        },
+        "classSelection": {
+          "type": "string",
+          "description": "The class the student is applying for."
+        },
+        "contactNumber": {
+          "type": "string",
+          "description": "Parent or guardian contact number."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "reviewed", "accepted", "rejected"],
+          "description": "Current processing status of the application."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the record was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the record was last updated."
+        }
+      },
+      "required": ["childName", "classSelection", "contactNumber", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/admissions/{admissionId}": {
+      "schema": "admission",
+      "description": "Collection of all student admission requests."
+    }
+  }
+}
