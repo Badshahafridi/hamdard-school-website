@@ -6,18 +6,18 @@
   --font-urdu: "Noto Nastaliq Urdu", serif;
   --font-serif: "Georgia", serif;
 
-  --color-bg: #0C0C0C;
+  --color-bg: #001228;
   --color-accent: #E0FF00;
   --color-ink: #FFFFFF;
-  --color-muted: #666666;
-  --color-border: rgba(255, 255, 255, 0.15);
+  --color-muted: #8E9BAE;
+  --color-border: rgba(255, 255, 255, 0.1);
   
-  --color-brand-deep: #0C0C0C;
-  --color-brand-primary: #111111;
-  --color-brand-medium: #1A1A1A;
+  --color-brand-deep: #000B1A;
+  --color-brand-primary: #001228;
+  --color-brand-medium: #001B3D;
   --color-brand-light: #E0FF00;
   --color-brand-vibrant: #E0FF00;
-  --color-brand-pale: #151515;
+  --color-brand-pale: #001B3D;
   
   --color-gold: #E0FF00;
   --color-gold-light: #E0FF00;

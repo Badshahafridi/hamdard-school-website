@@ -64,36 +64,36 @@ export const Fees = () => {
         />
 
         <div className="grid lg:grid-cols-[1.5fr_1fr] bg-border border border-border gap-px">
-          <div className="bg-bg p-8 lg:p-12">
+          <div className="bg-bg p-6 sm:p-8 lg:p-12">
             <div className="space-y-0">
                {rows.map((r, i) => (
-                 <div key={i} className="flex items-center justify-between py-6 border-b border-border hover:px-4 transition-all group">
-                    <span className="urdu text-xl text-muted group-hover:text-ink">{r.ur}</span>
-                    <div className="flex items-center gap-4">
-                       <span className="font-black text-3xl text-ink tracking-tighter">{r.fee}</span>
-                       <span className="text-muted uppercase text-[10px] font-bold tracking-[0.2em]">PKR / MO</span>
+                 <div key={i} className="flex items-center justify-between py-5 sm:py-6 border-b border-border hover:px-2 sm:hover:px-4 transition-all group">
+                    <span className="urdu text-lg sm:text-xl text-muted group-hover:text-ink">{r.ur}</span>
+                    <div className="flex items-center gap-3 sm:gap-4">
+                       <span className="font-black text-2xl sm:text-3xl text-ink tracking-tighter">{r.fee}</span>
+                       <span className="text-muted uppercase text-[8px] sm:text-[10px] font-bold tracking-[0.2em]">PKR / MO</span>
                     </div>
                  </div>
                ))}
             </div>
           </div>
 
-          <div className="bg-bg p-8 lg:p-12 flex flex-col justify-between border-l border-border">
+          <div className="bg-bg p-6 sm:p-8 lg:p-12 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-border">
             <div>
-               <div className="text-accent font-black text-[11px] tracking-[0.4em] mb-12 uppercase">SYSTEM LOGS / PRICING</div>
-               <p className="urdu text-lg leading-[2.2] text-muted mb-12">
+               <div className="text-accent font-black text-[10px] sm:text-[11px] tracking-[0.4em] mb-8 lg:mb-12 uppercase">SYSTEM LOGS / PRICING</div>
+               <p className="urdu text-base sm:text-lg leading-[2] sm:leading-[2.2] text-muted mb-8 lg:mb-12">
                  ہمدرد اسکول میں فیس مکمل شفاف ہے۔ کسی بھی قسم کے چھپے ہوئے اخراجات نہیں ہیں۔
                </p>
-               <ul className="space-y-4 urdu mb-12">
+               <ul className="space-y-4 urdu mb-8 lg:mb-12">
                  {["داخلہ فارم مفت", "کوئی اضافی چارجز نہیں", "ڈیجیٹل ادائیگی دستیاب"].map((item, i) => (
-                    <li key={i} className="text-ink text-sm flex items-center gap-4">
-                       <span className="text-accent font-mono">[{i}]</span>
+                    <li key={i} className="text-ink text-xs sm:text-sm flex items-center gap-4">
+                       <span className="text-accent font-mono text-[10px]">[{i}]</span>
                        {item}
                     </li>
                  ))}
                </ul>
             </div>
-            <a href="https://wa.me/923331373919" className="text-center bg-accent text-bg font-black uppercase text-[11px] tracking-[0.3em] py-5">
+            <a href="https://wa.me/923331373919" className="text-center bg-accent text-bg font-black uppercase text-[10px] sm:text-[11px] tracking-[0.3em] py-5 active:scale-95 transition-transform">
                Contact For Details
             </a>
           </div>
